@@ -1,9 +1,11 @@
 package ru.internship.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,15 +21,17 @@ public class UserDto {
     private Integer age;
     private Long id;
 
+
     public static UserDto from(User user) {
         return UserDto.builder().id(user.getId()).age(user.getAge()).name(user.getName()).surname(user.getSurname()).build();
     }
 
     public static List<UserDto> from(List<User> users){
+
         return users.stream().map(UserDto::from).collect(Collectors.toList());
     }
 
-    public User getUser() {
+    public User convertToUser() {
         return User.builder().age(age).surname(surname).name(name).build();
     }
 }

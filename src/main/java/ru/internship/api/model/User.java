@@ -1,10 +1,9 @@
 package ru.internship.api.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -13,8 +12,10 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @NoArgsConstructor
 @Builder
 @Data
-@Document(collection = "Employee")
+@Document(collection = "users")
 public class User {
+    @Transient
+    public static final String SEQUENCE_NAME = "users_sequence";
     @Field
     private String name;
     @Field
@@ -22,5 +23,8 @@ public class User {
     @Field
     private Integer age;
     @Id
-    private Long id;
+    @ToString.Exclude
+    private long id;
+
+
 }
